@@ -71,8 +71,15 @@ sudo systemctl enable --now caddy
 
 # Set up automatic security updates
 log "🔒 Setting up unattended-upgrades for automatic security updates..."
+log "🔒 Installing and configuring unattended-upgrades non-interactively..."
 sudo apt-get install unattended-upgrades -y
-sudo dpkg-reconfigure -plow unattended-upgrades
+
+# Enable unattended upgrades via config
+echo 'APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";' | sudo tee /etc/apt/apt.conf.d/20auto-upgrades
+
+log "✅ Unattended-upgrades installed and enabled without user interaction."
+
 
 # Install SSHGuard
 log "🛡️ Installing and enabling SSHGuard for SSH protection..."
