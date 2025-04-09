@@ -64,4 +64,18 @@ sudo apt update
 sudo apt install -y caddy
 sudo systemctl enable --now caddy
 
+# Set up automatic security updates
+log "🔒 Setting up unattended-upgrades for automatic security updates..."
+sudo apt-get install unattended-upgrades -y
+sudo dpkg-reconfigure -plow unattended-upgrades
+
+# Install SSHGuard
+log "🛡️ Installing and enabling SSHGuard for SSH protection..."
+sudo apt install -y sshguard
+sudo systemctl enable --now sshguard.service
+
+log "📝 SSHGuard config file is located at: /etc/sshguard/sshguard.conf"
+log "✅ Security hardening steps completed."
+
+
 log "✅ Odoo 18 and Caddy installed successfully. All output saved to $LOG_FILE"
