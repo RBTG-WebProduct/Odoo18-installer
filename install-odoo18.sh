@@ -18,7 +18,12 @@ log "🚀 Starting Odoo 18 installation on Ubuntu 24.04..."
 
 # Update system
 log "🔄 Updating system packages..."
-sudo apt update && sudo apt upgrade -y
+export DEBIAN_FRONTEND=noninteractive
+sudo apt update
+sudo apt -o Dpkg::Options::="--force-confdef" \
+         -o Dpkg::Options::="--force-confold" \
+         upgrade -y
+
 
 # Install dependencies
 log "📦 Installing system dependencies..."
